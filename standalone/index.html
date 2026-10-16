@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hair Masters Luxury Salon — Escape to a World of Beauty</title>
-<meta name="description" content="Hair Masters Luxury Salon — premium hair, makeup and beauty across India. Book via WhatsApp." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet" />
+<title>Hair Masters Luxury Salon â€” Escape to a World of Beauty</title>
+<meta name="description" content="Hair Masters Luxury Salon â€” premium hair, makeup and beauty across India. Book via WhatsApp." />
+<link rel="stylesheet" href="fonts.css" />
 <style>
 :root{
   --cream:#f2eee7;
@@ -51,12 +49,19 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   font-size:.78rem;font-weight:500;letter-spacing:.04em;
   transition:background .35s var(--ease),color .35s,transform .25s;
 }
-.btn-coral{background:var(--coral);color:var(--white)}
-.btn-coral:hover{background:var(--coral-deep)}
-.btn-ink{background:var(--ink);color:var(--cream-2)}
-.btn-ink:hover{background:var(--coral)}
+.btn-coral{background:var(--coral);color:var(--white);border:1px solid var(--coral)}
+.btn-coral:hover{background:var(--coral-deep);border-color:var(--coral-deep)}
+.btn-ink{background:var(--ink);color:var(--cream-2);border:1px solid var(--ink)}
+.btn-ink:hover{background:var(--coral);border-color:var(--coral);color:var(--white)}
 .btn-ghost{border:1px solid var(--line);background:transparent}
 .btn-ghost:hover{border-color:var(--ink);background:var(--white)}
+.btn-outline-light{
+  background:transparent;color:var(--cream-2);
+  border:1px solid rgba(251,248,242,.4);
+}
+.btn-outline-light:hover{
+  background:var(--cream-2);color:var(--ink);border-color:var(--cream-2);
+}
 .btn svg{width:14px;height:14px}
 
 /* Nav */
@@ -90,36 +95,47 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   .nav-toggle{display:none}
 }
 
-/* Hero */
+/* Hero â€” Elysia-style sticky zoom parallax */
 .hero{
-  position:relative;min-height:100svh;margin-top:var(--nav-h);
-  display:flex;align-items:flex-end;overflow:hidden;color:var(--white);
+  position:relative;height:100svh;margin:0;
+  overflow:clip;color:var(--white);isolation:isolate;
 }
-.hero-media{position:absolute;inset:0}
-.hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);will-change:transform}
+.hero-media{
+  position:absolute;inset:-8%;
+  will-change:transform;transform-origin:center center;
+}
+.hero-media img{width:100%;height:100%;object-fit:cover}
 .hero-scrim{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(33,27,24,.25) 0%,rgba(33,27,24,.45) 45%,rgba(33,27,24,.72) 100%);
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(33,27,24,.2) 0%,rgba(33,27,24,.35) 40%,rgba(33,27,24,.7) 100%);
 }
-.hero-content{
-  position:relative;z-index:2;width:min(1400px,100%);margin:0 auto;
-  padding:4rem 1.5rem 3.5rem;display:grid;gap:2rem;
+.hero-zoom{
+  position:absolute;inset:0;z-index:2;
+  display:grid;place-items:center;padding:1.5rem;
+  will-change:transform;transform-origin:center center;
+  pointer-events:none;
 }
-.hero-rating{display:flex;align-items:center;gap:.5rem;font-size:.8rem;opacity:.9}
-.hero-rating .stars{color:var(--coral);letter-spacing:.05em}
-.hero h1{
+.hero-title{
   font-family:"Fraunces",serif;font-weight:500;
-  font-size:clamp(2.6rem,7.5vw,5.75rem);line-height:.98;letter-spacing:-.02em;
-  max-width:16ch;
+  font-size:clamp(2.75rem,8vw,6.5rem);line-height:.98;letter-spacing:-.025em;
+  text-align:center;max-width:14ch;margin:0 auto;
 }
+.hero-chrome{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:calc(var(--nav-h) + 1rem) 1.5rem 2rem;width:min(1400px,100%);margin:0 auto;left:0;right:0;
+}
+.hero-chrome a,.hero-chrome .btn{pointer-events:auto}
+.hero-rating{display:flex;align-items:center;gap:.5rem;font-size:.8rem;opacity:.9;align-self:flex-end}
+.hero-rating .stars{color:var(--coral);letter-spacing:.05em}
 .hero-meta{
   display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:flex-end;justify-content:space-between;
 }
-.hero-loc{display:flex;align-items:center;gap:.45rem;font-size:.9rem;opacity:.9}
+.hero-loc{display:flex;align-items:center;gap:.45rem;font-size:.9rem;opacity:.9;max-width:36rem}
 .hero-loc svg{width:16px;height:16px;flex-shrink:0}
 @media(min-width:900px){
-  .hero-content{padding:5rem 2rem 4rem;grid-template-columns:1.2fr .8fr;align-items:end}
-  .hero-rating{justify-self:end;align-self:start}
+  .hero-chrome{padding:2rem 2rem 2.75rem}
+  .hero-title{font-size:clamp(3.5rem,7.2vw,6.75rem)}
 }
 
 /* Services */
@@ -162,20 +178,42 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   font-weight:500;color:var(--coral);line-height:1;
 }
 .svc-photo{
+  --base-rot:-4deg;
   width:100%;max-width:160px;aspect-ratio:1;overflow:hidden;
   border:3px solid rgba(251,248,242,.85);
-  transform:rotate(-4deg);box-shadow:0 18px 40px rgba(0,0,0,.35);
+  box-shadow:0 18px 40px rgba(0,0,0,.35);
+  transform:rotate(var(--base-rot));
+  transform-style:preserve-3d;
+  perspective:600px;
+  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s;
   will-change:transform;
 }
-.svc-item:nth-child(even) .svc-photo{transform:rotate(3.5deg)}
-.svc-photo img{width:100%;height:100%;object-fit:cover}
+.svc-item:nth-child(even) .svc-photo{--base-rot:3.5deg}
+.svc-photo img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+@media(hover:hover) and (pointer:fine){
+  .svc-item:hover .svc-photo{
+    box-shadow:0 28px 55px rgba(0,0,0,.45);
+  }
+  .svc-item:hover .svc-photo img{transform:scale(1.08)}
+  .svc-item:nth-child(odd):hover .svc-photo{transform:rotate(7deg) scale(1.07) translateY(-8px)}
+  .svc-item:nth-child(even):hover .svc-photo{transform:rotate(-7deg) scale(1.07) translateY(-8px)}
+}
 .svc-body h3{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.45rem,2.5vw,1.9rem)}
 .svc-price{margin-top:.35rem;font-size:.9rem;color:rgba(251,248,242,.65)}
 .svc-body p{margin-top:.75rem;font-size:.92rem;color:rgba(251,248,242,.72);max-width:36rem}
-.svc-body .btn{margin-top:1rem}
+.svc-body .btn{
+  margin-top:1.1rem;width:fit-content;white-space:nowrap;
+  font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:.8rem 1.2rem;
+}
 
-/* Looks */
-.looks{background:var(--cream);padding:5.5rem 0}
+/* Looks â€” double grid sticky stack
+   Sticky stays on .look-card; scale/filter only on .look-card-inner
+   (transform on sticky itself breaks scroll stacking) */
+.looks{background:var(--cream);padding:5.5rem 0 6rem}
 .looks-head{max-width:36rem;margin-bottom:2.5rem}
 .looks-head .eyebrow{color:var(--coral)}
 .looks-head h2{
@@ -183,17 +221,42 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   font-size:clamp(2rem,4.2vw,3.25rem);line-height:1.1;margin:.75rem 0 .85rem;
 }
 .looks-head p{color:var(--muted)}
-.looks-grid{
-  display:grid;gap:1.5rem 1.1rem;
-  grid-template-columns:repeat(2,1fr);
+.looks-stack{
+  display:grid;gap:1.25rem;
+  grid-template-columns:1fr;
+  align-items:start;
 }
-@media(min-width:900px){.looks-grid{grid-template-columns:repeat(4,1fr);gap:1.75rem 1.15rem}}
-.look-card{display:block}
-.look-card .media{aspect-ratio:3/4;overflow:hidden;background:var(--ink)}
-.look-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.look-card:hover img{transform:scale(1.06)}
-.look-card h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.15rem;margin-top:.85rem}
+@media(min-width:768px){
+  .looks-stack{grid-template-columns:1fr 1fr;gap:1.75rem 2rem}
+  .looks-col--b{margin-top:12vh}
+}
+.looks-col{display:flex;flex-direction:column;gap:42vh}
+.look-card{
+  display:block;
+  position:sticky;
+  top:calc(var(--nav-h) + 1rem + var(--stack,0) * 12px);
+  z-index:calc(1 + var(--stack,0));
+}
+.look-card-inner{
+  transform-origin:center top;
+  will-change:transform,filter;
+  background:var(--cream);
+  padding-bottom:.25rem;
+}
+.look-card .media{
+  aspect-ratio:3/4;overflow:hidden;background:var(--ink);
+  border:1px solid rgba(33,27,24,.08);
+  box-shadow:0 20px 50px rgba(33,27,24,.12);
+}
+.look-card img{width:100%;height:100%;object-fit:cover}
+.look-card .copy{padding:.85rem .1rem 0}
+.look-card h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.2rem}
 .look-card p{font-size:.82rem;color:var(--muted);margin-top:.25rem}
+@media(max-width:767px){
+  .looks-col{gap:.65rem}
+  .look-card{position:relative;top:auto;z-index:auto}
+  .look-card-inner{will-change:auto}
+}
 
 /* Approach */
 .approach{background:var(--cream-2);padding:5.5rem 0;border-top:1px solid var(--line)}
@@ -308,8 +371,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 }
 .franchise p{color:rgba(255,255,255,.8);margin-bottom:1.5rem;max-width:32rem}
 
-/* Gallery */
-.gallery{padding:5.5rem 0;background:var(--cream-2)}
+/* Gallery â€” stable CSS grid (no GSAP x-transform / no scroll trap) */
+.gallery{padding:5.5rem 0;background:var(--cream-2);overflow:hidden}
 .gallery-head{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:end;margin-bottom:2rem}
 .gallery-head .eyebrow{color:var(--coral)}
 .gallery-head h2{
@@ -317,14 +380,16 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin:.5rem 0 0;
 }
 .gallery-strip{
-  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,28vw);
-  gap:.75rem;overflow-x:auto;padding-bottom:.5rem;scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:.65rem;
 }
-.gallery-strip::-webkit-scrollbar{height:4px}
-.gallery-strip::-webkit-scrollbar-thumb{background:var(--coral);border-radius:4px}
-.gal-item{scroll-snap-align:start;position:relative;aspect-ratio:3/4;overflow:hidden}
-.gal-item img{width:100%;height:100%;object-fit:cover}
+@media(min-width:700px){
+  .gallery-strip{grid-template-columns:repeat(4,1fr);gap:.85rem}
+}
+.gal-item{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--ink)}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.gal-item:hover img{transform:scale(1.05)}
 .gal-item span{
   position:absolute;left:0;right:0;bottom:0;padding:.85rem;
   background:linear-gradient(transparent,rgba(33,27,24,.75));
@@ -382,14 +447,132 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .wa a:hover{transform:scale(1.06)}
 .wa svg{width:26px;height:26px}
 
-/* Reveal defaults — GSAP sets visibility */
-.reveal{will-change:transform,opacity}
+/* Reveal defaults â€” GSAP drives visibility; hidden until scroll-in */
+.reveal,.approach-card,.gal-item{opacity:0;will-change:transform,opacity}
 .hero-line{overflow:hidden}
 .hero-line > span{display:block;will-change:transform}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.approach-card,.gal-item{opacity:1}
+}
 
 @media(max-width:759px){
   .about-badge{display:none}
   .svc-photo{margin:0 auto}
+}
+
+/* Mobile compact layout â€” shorter page, smaller cards */
+@media(max-width:767px){
+  .container,.container-wide{padding:0 1rem}
+  .section,.services,.looks,.approach,.about,.stories,.prep,.gallery,.visit{
+    padding-top:2.75rem;padding-bottom:2.75rem;
+  }
+  .looks{padding-bottom:3rem}
+  .franchise{padding:2.5rem 0}
+  /* Full-bleed hero on mobile */
+  .hero{
+    height:100svh;min-height:100svh;width:100%;
+    margin:0;padding:0;overflow:hidden;
+  }
+  .hero-media{inset:0}
+  .hero-title{font-size:clamp(2.15rem,9vw,3rem)}
+  .hero-chrome{padding:calc(var(--nav-h) + .65rem) 1rem 1.35rem;width:100%;max-width:none}
+  .hero-zoom{padding:1rem}
+  .hero-rating{font-size:.72rem}
+  .hero-loc{font-size:.78rem}
+  .btn{padding:.7rem 1rem;font-size:.72rem}
+
+  .services-head,.looks-head,.approach-head,.stories-head,.prep-head,.gallery-head{
+    margin-bottom:1.25rem;
+  }
+  .services-head h2,.looks-head h2,.approach-head h2,.stories-head h2,.prep-head h2,.gallery-head h2,.visit h2{
+    font-size:clamp(1.65rem,7vw,2.15rem);
+  }
+  .services-head p,.looks-head p{font-size:.85rem}
+
+  /* Services â€” compact horizontal cards */
+  .svc-nav{gap:.35rem .85rem;margin-bottom:.25rem}
+  .svc-nav a{font-size:.62rem;padding-left:.55rem}
+  .svc-item{
+    grid-template-columns:52px 72px 1fr;
+    gap:.65rem .75rem;
+    padding:1rem 0;
+    align-items:center;
+  }
+  .svc-num{font-size:1.45rem}
+  .svc-photo{
+    --base-rot:-2deg;
+    max-width:72px;margin:0;
+    border-width:2px;box-shadow:0 8px 18px rgba(0,0,0,.25);
+  }
+  .svc-item:nth-child(even) .svc-photo{--base-rot:2deg}
+  .svc-body h3{font-size:1.05rem}
+  .svc-price{font-size:.75rem;margin-top:.15rem}
+  .svc-body p{margin-top:.35rem;font-size:.78rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .svc-body .btn{margin-top:.55rem;padding:.6rem .9rem;font-size:.62rem}
+
+  /* Looks â€” 2-col compact cards (not tall stack) */
+  .looks-stack{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:.65rem;
+  }
+  .looks-col{
+    display:contents;
+  }
+  .looks-col--b{margin-top:0}
+  .look-card{
+    position:relative;top:auto;
+  }
+  .look-card .media{
+    aspect-ratio:4/5;
+    box-shadow:0 8px 20px rgba(33,27,24,.1);
+  }
+  .look-card .copy{padding:.45rem .05rem 0}
+  .look-card h3{font-size:.92rem;line-height:1.2}
+  .look-card p{display:none}
+
+  /* Approach â€” 2-col compact */
+  .approach-grid{grid-template-columns:1fr 1fr;gap:.65rem}
+  .approach-card{padding:1rem .85rem}
+  .approach-card .num{font-size:1.25rem}
+  .approach-card h3{font-size:1rem;margin:.35rem 0 .4rem}
+  .approach-card p{font-size:.75rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+  .about-main{aspect-ratio:1;max-height:280px}
+  .about-copy .lead{font-size:1.05rem;margin-bottom:.85rem}
+  .about-copy p{font-size:.88rem}
+  .stats{grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:1.25rem;padding-top:1rem}
+  .stats strong{font-size:1.25rem}
+  .stats span{font-size:.65rem}
+
+  .story-pair{gap:.65rem;margin-bottom:1rem}
+  .story-card .media{aspect-ratio:16/10}
+  .story-card .body{padding:.85rem .8rem 1rem}
+  .story-card h3{font-size:1.05rem}
+  .story-card p{font-size:.78rem;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .reviews{gap:.65rem}
+  .review{padding:1rem .9rem}
+  .review p{font-size:.95rem}
+
+  .prep-grid{gap:.5rem}
+  .prep-item{padding:.7rem .65rem;gap:.65rem}
+  .prep-item .ico{width:28px;height:28px;font-size:.75rem}
+  .prep-item h3{font-size:.82rem}
+  .prep-item p{font-size:.72rem}
+
+  /* Gallery â€” compact 2Ã—2 */
+  .gallery-strip{grid-template-columns:1fr 1fr;gap:.45rem}
+  .gal-item{aspect-ratio:1}
+  .gal-item:nth-child(n+5){display:none}
+  .gal-item span{font-size:.62rem;padding:.45rem}
+  .gal-item:hover img{transform:none}
+
+  .visit-grid{gap:1.5rem}
+  .hours{padding:1.35rem 1.15rem}
+  .hours h3{font-size:1.25rem}
+  .wa a{width:48px;height:48px}
+  .footer{padding:2.25rem 0 1.35rem}
+  .footer-bottom{margin-top:1.25rem}
 }
 </style>
 </head>
@@ -397,7 +580,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 <header class="nav">
   <a class="nav-brand" href="#top">
     <strong>Hair Masters</strong>
-    <span>Luxury Salon — India</span>
+    <span>Luxury Salon â€” India</span>
   </a>
   <nav class="nav-links" aria-label="Primary">
     <a href="#services">Services</a>
@@ -424,28 +607,28 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 </div>
 
 <main id="top">
-  <section class="hero">
-    <div class="hero-media">
-      <img src="https://www.hmsalon.co.uk/wp-content/uploads/2025/03/Hair-Master-Salon.jpg" alt="Hair Masters Luxury Salon interior" />
+  <section class="hero" id="hero">
+    <div class="hero-media" aria-hidden="true">
+      <img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/8baa9cc8-da78-48a9-aaab-7a32b5729df7/hair-master-salon.jpg" alt="" />
     </div>
-    <div class="hero-scrim"></div>
-    <div class="hero-content">
-      <div>
-        <h1 class="hero-title">
-          <span class="hero-line"><span>A luxury hair &amp; beauty</span></span>
-          <span class="hero-line"><span>salon for modern India.</span></span>
-        </h1>
-      </div>
-      <div class="hero-rating reveal">
-        <span class="stars">★★★★★</span>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="hero-zoom">
+      <h1 class="hero-title">
+        <span class="hero-line"><span>A luxury hair &amp; beauty</span></span>
+        <span class="hero-line"><span>salon for modern India.</span></span>
+      </h1>
+    </div>
+    <div class="hero-chrome">
+      <div class="hero-rating">
+        <span class="stars">â˜…â˜…â˜…â˜…â˜…</span>
         <span>Trusted across Delhi NCR &amp; India</span>
       </div>
       <div class="hero-meta">
-        <p class="hero-loc reveal">
+        <p class="hero-loc">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.3 7-11a7 7 0 10-14 0c0 5.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Flagship at Punjabi Bagh, New Delhi — with salons across India.
+          Flagship at Punjabi Bagh, New Delhi â€” with salons across India.
         </p>
-        <a class="btn btn-coral reveal" href="#services">Explore Services
+        <a class="btn btn-coral" href="#services">Explore Services
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
         </a>
       </div>
@@ -468,92 +651,92 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <div class="svc-list">
           <article class="svc-item reveal" data-cat="hair" id="cat-hair">
             <div class="svc-num">01</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/05/DSC07366.jpg" alt="Haircut and styling" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/e12cc033-2bc1-470d-b312-8d4a001ea2d9/dsc07366.jpg" alt="Haircut and styling" /></div>
             <div class="svc-body">
               <h3>Haircut &amp; Styling</h3>
               <p class="svc-price">Personalised cuts &amp; finish</p>
-              <p>Expert cuts and styles tailored to your face shape, texture and everyday routine — finished with a polished blow-dry.</p>
+              <p>Expert cuts and styles tailored to your face shape, texture and everyday routine â€” finished with a polished blow-dry.</p>
               <a class="btn btn-coral" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">WhatsApp to book</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="hair">
             <div class="svc-num">02</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-January-13-2024.-May-be-an-image-of-1-person-blonde-hair-and-braids.jpg" alt="Hair colour and highlights" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/ccdf20ac-b69b-4048-8ffe-8cbacd84b459/blonde-braids.jpg" alt="Hair colour and highlights" /></div>
             <div class="svc-body">
               <h3>Hair Colour &amp; Highlights</h3>
               <p class="svc-price">Consultation recommended</p>
               <p>Root touch-ups, all-over colour, highlighting and dimensional finishes planned around your current hair health.</p>
-              <a class="btn btn-ink" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Consultation</a>
+              <a class="btn btn-outline-light" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Book consultation</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="hair">
             <div class="svc-num">03</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-May-27-2023.jpg" alt="Signature colour" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/1df855dd-bcf4-4cac-9c6f-ba12c66d55a4/may-27-2023.jpg" alt="Signature colour" /></div>
             <div class="svc-body">
               <h3>Signature Colouring</h3>
               <p class="svc-price">Custom colour artistry</p>
-              <p>From soft gloss to bold transformation — colour designed for Indian hair types with lasting, wearable results.</p>
+              <p>From soft gloss to bold transformation â€” colour designed for Indian hair types with lasting, wearable results.</p>
               <a class="btn btn-coral" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">WhatsApp to book</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="beauty" id="cat-beauty">
             <div class="svc-num">04</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-February-08-2024.-May-be-an-image-of-1-person-henna-jewelry-and-wedding.jpg" alt="Bridal makeup" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/25d59dc5-47e4-43f8-9466-e8efe97832e1/bridal-henna.jpg" alt="Bridal makeup" /></div>
             <div class="svc-body">
               <h3>Bridal Makeup</h3>
               <p class="svc-price">Trials available</p>
-              <p>Exquisite bridal artistry that lasts through every ceremony — crafted for your features, outfit and celebration.</p>
+              <p>Exquisite bridal artistry that lasts through every ceremony â€” crafted for your features, outfit and celebration.</p>
               <a class="btn btn-coral" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">WhatsApp to book</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="beauty">
             <div class="svc-num">05</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-January-30-2024.-May-be-an-image-of-1-person.jpg" alt="Party makeup" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/3953ce35-f76a-40c3-834d-f25a77f3289b/january-30-2024.jpg" alt="Party makeup" /></div>
             <div class="svc-body">
               <h3>Party &amp; Event Makeup</h3>
               <p class="svc-price">Soft glam to evening polish</p>
-              <p>Personalised makeup for parties, photos and celebrations — natural soft glam or a more defined evening look.</p>
+              <p>Personalised makeup for parties, photos and celebrations â€” natural soft glam or a more defined evening look.</p>
               <a class="btn btn-coral" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">WhatsApp to book</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="beauty">
             <div class="svc-num">06</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-June-26-2023.jpg" alt="Editorial makeup" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/5af9656f-ef9b-47c4-848c-0d02d66f6ae3/june-26-2023.jpg" alt="Editorial makeup" /></div>
             <div class="svc-body">
               <h3>Editorial Makeup</h3>
               <p class="svc-price">Creative looks</p>
-              <p>Statement makeup for shoots and special moments — artistry that photographs beautifully and feels like you.</p>
-              <a class="btn btn-ink" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Enquire</a>
+              <p>Statement makeup for shoots and special moments â€” artistry that photographs beautifully and feels like you.</p>
+              <a class="btn btn-outline-light" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Enquire on WhatsApp</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="care" id="cat-care">
             <div class="svc-num">07</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/05/Untitled-design-2024-05-10T120026.114.jpg" alt="Shellac coating" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/320cda1e-168f-4c4e-a38c-cc7fb011a5a6/shellac.jpg" alt="Shellac coating" /></div>
             <div class="svc-body">
               <h3>Shellac Coating</h3>
               <p class="svc-price">Long-wear colour</p>
-              <p>Flawless, chip-resistant nails with vibrant colours that last — perfect for everyday polish or occasions.</p>
+              <p>Flawless, chip-resistant nails with vibrant colours that last â€” perfect for everyday polish or occasions.</p>
               <a class="btn btn-coral" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">WhatsApp to book</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="care">
             <div class="svc-num">08</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-January-30-2024.-May-be-an-image-of-1-person.jpg" alt="Eyelash extensions" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/3953ce35-f76a-40c3-834d-f25a77f3289b/january-30-2024.jpg" alt="Eyelash extensions" /></div>
             <div class="svc-body">
               <h3>Eyelash Extensions</h3>
               <p class="svc-price">Natural to dramatic</p>
-              <p>Luxurious lashes for a soft everyday lift or full drama — applied with comfort and lasting wear in mind.</p>
+              <p>Luxurious lashes for a soft everyday lift or full drama â€” applied with comfort and lasting wear in mind.</p>
               <a class="btn btn-coral" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">WhatsApp to book</a>
             </div>
           </article>
           <article class="svc-item reveal" data-cat="care">
             <div class="svc-num">09</div>
-            <div class="svc-photo"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/best-hair-salon-in-india.jpg" alt="Regenerating treatments" /></div>
+            <div class="svc-photo"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/04d4c697-320c-4e43-aca7-2399ea9204b6/best-hair-salon-in-india.jpg" alt="Regenerating treatments" /></div>
             <div class="svc-body">
               <h3>Regenerating Treatments</h3>
               <p class="svc-price">Skin &amp; hair renewal</p>
-              <p>Rejuvenating treatments that restore radiance — planned around your skin and hair condition, not only trends.</p>
-              <a class="btn btn-ink" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Consultation</a>
+              <p>Rejuvenating treatments that restore radiance â€” planned around your skin and hair condition, not only trends.</p>
+              <a class="btn btn-outline-light" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Book consultation</a>
             </div>
           </article>
         </div>
@@ -568,47 +751,43 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <h2>Looks created at Hair Masters</h2>
         <p>Explore recent cuts, colour, bridal and party artistry from our ateliers across India.</p>
       </div>
-      <div class="looks-grid">
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-February-08-2024.-May-be-an-image-of-1-person-henna-jewelry-and-wedding.jpg" alt="Bridal Makeup" /></div>
-          <h3>Bridal Makeup</h3>
-          <p>Ceremony-ready artistry with lasting radiance.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-January-30-2024.-May-be-an-image-of-1-person.jpg" alt="Party Makeup" /></div>
-          <h3>Party Makeup</h3>
-          <p>Soft glam finishes for evenings out.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-January-13-2024.-May-be-an-image-of-1-person-blonde-hair-and-braids.jpg" alt="Hair Highlighting" /></div>
-          <h3>Hair Highlighting</h3>
-          <p>Face-framing brightness with soft grow-out.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-May-27-2023.jpg" alt="Hair Colouring" /></div>
-          <h3>Hair Colouring</h3>
-          <p>Rich, dimensional colour for everyday wear.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/05/DSC07366.jpg" alt="Hair Styling" /></div>
-          <h3>Hair Styling</h3>
-          <p>Polished shapes softened to your texture.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-June-26-2023.jpg" alt="Editorial Makeup" /></div>
-          <h3>Editorial Makeup</h3>
-          <p>Camera-ready looks with creative edge.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/hair-masters-india.jpg" alt="Signature Colour" /></div>
-          <h3>Signature Colour</h3>
-          <p>Custom tones with a reflective finish.</p>
-        </article>
-        <article class="look-card">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2025/03/Hair-Master-Salon.jpg" alt="Salon Portrait" /></div>
-          <h3>Atelier Moments</h3>
-          <p>Life inside our flagship studios.</p>
-        </article>
+      <div class="looks-stack" id="looksStack">
+        <div class="looks-col looks-col--a">
+          <article class="look-card" style="--stack:0"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/25d59dc5-47e4-43f8-9466-e8efe97832e1/bridal-henna.jpg" alt="Bridal Makeup" /></div>
+            <div class="copy"><h3>Bridal Makeup</h3><p>Ceremony-ready artistry with lasting radiance.</p></div>
+          </div></article>
+          <article class="look-card" style="--stack:1"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/ccdf20ac-b69b-4048-8ffe-8cbacd84b459/blonde-braids.jpg" alt="Hair Highlighting" /></div>
+            <div class="copy"><h3>Hair Highlighting</h3><p>Face-framing brightness with soft grow-out.</p></div>
+          </div></article>
+          <article class="look-card" style="--stack:2"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/e12cc033-2bc1-470d-b312-8d4a001ea2d9/dsc07366.jpg" alt="Hair Styling" /></div>
+            <div class="copy"><h3>Hair Styling</h3><p>Polished shapes softened to your texture.</p></div>
+          </div></article>
+          <article class="look-card" style="--stack:3"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/96bbd9ed-aaac-4c32-b4e9-c749c5494e03/hair-masters-india.jpg" alt="Signature Colour" /></div>
+            <div class="copy"><h3>Signature Colour</h3><p>Custom tones with a reflective finish.</p></div>
+          </div></article>
+        </div>
+        <div class="looks-col looks-col--b">
+          <article class="look-card" style="--stack:0"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/3953ce35-f76a-40c3-834d-f25a77f3289b/january-30-2024.jpg" alt="Party Makeup" /></div>
+            <div class="copy"><h3>Party Makeup</h3><p>Soft glam finishes for evenings out.</p></div>
+          </div></article>
+          <article class="look-card" style="--stack:1"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/1df855dd-bcf4-4cac-9c6f-ba12c66d55a4/may-27-2023.jpg" alt="Hair Colouring" /></div>
+            <div class="copy"><h3>Hair Colouring</h3><p>Rich, dimensional colour for everyday wear.</p></div>
+          </div></article>
+          <article class="look-card" style="--stack:2"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/5af9656f-ef9b-47c4-848c-0d02d66f6ae3/june-26-2023.jpg" alt="Editorial Makeup" /></div>
+            <div class="copy"><h3>Editorial Makeup</h3><p>Camera-ready looks with creative edge.</p></div>
+          </div></article>
+          <article class="look-card" style="--stack:3"><div class="look-card-inner">
+            <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/8baa9cc8-da78-48a9-aaab-7a32b5729df7/hair-master-salon.jpg" alt="Salon Portrait" /></div>
+            <div class="copy"><h3>Atelier Moments</h3><p>Life inside our flagship studios.</p></div>
+          </div></article>
+        </div>
       </div>
     </div>
   </section>
@@ -624,7 +803,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <article class="approach-card">
           <div class="num">01</div>
           <h3>Clear guidance</h3>
-          <p>We explain the service, expected maintenance and estimate before we begin — so there are no surprises.</p>
+          <p>We explain the service, expected maintenance and estimate before we begin â€” so there are no surprises.</p>
         </article>
         <article class="approach-card">
           <div class="num">02</div>
@@ -649,21 +828,21 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
     <div class="container">
       <div class="about-grid">
         <div class="about-visual reveal">
-          <div class="about-main"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2026/01/new-slidshow-banner-2jpg.jpg-1.jpeg" alt="Hair Masters stylist work" /></div>
+          <div class="about-main"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/ff0c198c-cc5a-4cf5-95ab-cdda4c2c44a9/about-banner.jpeg" alt="Hair Masters stylist work" /></div>
           <div class="about-badge">
-            <div class="frame"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/best-hair-salon-in-india.jpg" alt="Hair Masters look" /></div>
-            <p>Hair Masters — India</p>
+            <div class="frame"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/04d4c697-320c-4e43-aca7-2399ea9204b6/best-hair-salon-in-india.jpg" alt="Hair Masters look" /></div>
+            <p>Hair Masters â€” India</p>
           </div>
         </div>
         <div class="about-copy reveal">
           <p class="eyebrow">About Hair Masters</p>
           <h2>The people behind the craft</h2>
-          <p class="lead">Hair Masters Luxury Salon is more than a beauty establishment — it is a pursuit of excellence across India.</p>
-          <p>With an unwavering commitment to luxury, quality and customer satisfaction, our teams reshape beauty and wellness one exquisite makeover at a time — whether you visit for a trim, a bridal transformation or a full colour change.</p>
+          <p class="lead">Hair Masters Luxury Salon is more than a beauty establishment â€” it is a pursuit of excellence across India.</p>
+          <p>With an unwavering commitment to luxury, quality and customer satisfaction, our teams reshape beauty and wellness one exquisite makeover at a time â€” whether you visit for a trim, a bridal transformation or a full colour change.</p>
           <div class="stats">
             <div><strong>50+</strong><span>Cities &amp; markets</span></div>
             <div><strong>100+</strong><span>Salon locations</span></div>
-            <div><strong>10–9</strong><span>Open daily</span></div>
+            <div><strong>10â€“9</strong><span>Open daily</span></div>
           </div>
         </div>
       </div>
@@ -679,14 +858,14 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
       </div>
       <div class="story-pair">
         <article class="story-card reveal">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/hair-color-in-india.jpg" alt="Colour transformation" /></div>
+          <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/35873b15-f08a-4f7f-8deb-bf7ad86ec763/hair-color-in-india.jpg" alt="Colour transformation" /></div>
           <div class="body">
             <h3>From flat colour to dimensional depth</h3>
             <p>Warm dimensional tones create depth while keeping the finish natural and easy to maintain at home.</p>
           </div>
         </article>
         <article class="story-card reveal">
-          <div class="media"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/premium-hair-salon-in-india.jpg" alt="Healthy hair finish" /></div>
+          <div class="media"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/d571817d-21c3-4a88-84ac-c748ba484589/premium-hair-salon-in-india.jpg" alt="Healthy hair finish" /></div>
           <div class="body">
             <h3>From dry ends to soft movement</h3>
             <p>Damaged ends reshaped and supported with treatment for a softer, healthier finish that feels like you.</p>
@@ -695,16 +874,16 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
       </div>
       <div class="reviews">
         <blockquote class="review reveal">
-          <p>“Talented stylists, transformative haircut and styling, gorgeous eyelash extensions, and fabulous shellac coating.”</p>
+          <p>â€œTalented stylists, transformative haircut and styling, gorgeous eyelash extensions, and fabulous shellac coating.â€</p>
           <cite><strong>Guest review</strong>Haircut, lashes &amp; shellac</cite>
         </blockquote>
         <blockquote class="review reveal">
-          <p>“I had my makeup done for a wedding and it was perfect. It lasted all night, and I received so many compliments.”</p>
+          <p>â€œI had my makeup done for a wedding and it was perfect. It lasted all night, and I received so many compliments.â€</p>
           <cite><strong>Bridal guest</strong>Wedding makeup</cite>
         </blockquote>
         <blockquote class="review reveal">
-          <p>“Best haircut I’ve had in years. The stylist really listened and delivered a look that I love.”</p>
-          <cite><strong>Regular client</strong>Women’s cut &amp; style</cite>
+          <p>â€œBest haircut Iâ€™ve had in years. The stylist really listened and delivered a look that I love.â€</p>
+          <cite><strong>Regular client</strong>Womenâ€™s cut &amp; style</cite>
         </blockquote>
       </div>
     </div>
@@ -718,18 +897,18 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <p>A few practical details to help you feel comfortable and prepared before coming to Hair Masters.</p>
       </div>
       <div class="prep-grid">
-        <div class="prep-item reveal"><div class="ico">✓</div><div><h3>Women &amp; men welcome</h3><p>Dedicated portals for women’s and men’s salon services.</p></div></div>
-        <div class="prep-item reveal"><div class="ico">✓</div><div><h3>WhatsApp booking</h3><p>Message us to reserve your preferred slot quickly.</p></div></div>
-        <div class="prep-item reveal"><div class="ico">✓</div><div><h3>Open 7 days</h3><p>Monday–Sunday, 10:00am – 09:00pm at flagship.</p></div></div>
-        <div class="prep-item reveal"><div class="ico">✓</div><div><h3>Bridal trials</h3><p>Recommended ahead of wedding and event makeup.</p></div></div>
-        <div class="prep-item reveal"><div class="ico">✓</div><div><h3>Pan-India network</h3><p>Salons across Delhi, Gurugram, Noida, Punjab and more.</p></div></div>
-        <div class="prep-item reveal"><div class="ico">✓</div><div><h3>Franchise opportunities</h3><p>Join the Hair Masters family as a partner.</p></div></div>
+        <div class="prep-item reveal"><div class="ico">âœ“</div><div><h3>Women &amp; men welcome</h3><p>Dedicated portals for womenâ€™s and menâ€™s salon services.</p></div></div>
+        <div class="prep-item reveal"><div class="ico">âœ“</div><div><h3>WhatsApp booking</h3><p>Message us to reserve your preferred slot quickly.</p></div></div>
+        <div class="prep-item reveal"><div class="ico">âœ“</div><div><h3>Open 7 days</h3><p>Mondayâ€“Sunday, 10:00am â€“ 09:00pm at flagship.</p></div></div>
+        <div class="prep-item reveal"><div class="ico">âœ“</div><div><h3>Bridal trials</h3><p>Recommended ahead of wedding and event makeup.</p></div></div>
+        <div class="prep-item reveal"><div class="ico">âœ“</div><div><h3>Pan-India network</h3><p>Salons across Delhi, Gurugram, Noida, Punjab and more.</p></div></div>
+        <div class="prep-item reveal"><div class="ico">âœ“</div><div><h3>Franchise opportunities</h3><p>Join the Hair Masters family as a partner.</p></div></div>
       </div>
     </div>
   </section>
 
   <section class="franchise" id="franchise">
-    <div class="franchise-bg"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/hair-masters-india.jpg" alt="" /></div>
+    <div class="franchise-bg"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/96bbd9ed-aaac-4c32-b4e9-c749c5494e03/hair-masters-india.jpg" alt="" /></div>
     <div class="container reveal">
       <p class="eyebrow">Franchise Enquiry</p>
       <h2>Bring Hair Masters to your city</h2>
@@ -748,14 +927,14 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <a class="btn btn-ghost" href="https://wa.me/918796670500" target="_blank" rel="noreferrer">Book a visit</a>
       </div>
       <div class="gallery-strip" id="galleryStrip">
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2025/03/Hair-Master-Salon.jpg" alt="" /><span>Flagship atelier</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/05/DSC07366.jpg" alt="" /><span>Behind the chair</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-February-08-2024.-May-be-an-image-of-1-person-henna-jewelry-and-wedding.jpg" alt="" /><span>Bridal finishing</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/05/Untitled-design-2024-05-10T120026.114.jpg" alt="" /><span>Shellac colour</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-January-13-2024.-May-be-an-image-of-1-person-blonde-hair-and-braids.jpg" alt="" /><span>Colour day</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/best-hair-salon-in-india.jpg" alt="" /><span>Treatment ritual</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2022/05/Photo-by-HAIR-MASTERS-PUNJABI-BAGH-on-June-26-2023.jpg" alt="" /><span>Editorial moment</span></figure>
-        <figure class="gal-item"><img src="https://www.hmsalon.co.uk/wp-content/uploads/2024/07/premium-hair-salon-in-india.jpg" alt="" /><span>Ready for the day</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/8baa9cc8-da78-48a9-aaab-7a32b5729df7/hair-master-salon.jpg" alt="" /><span>Flagship atelier</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/e12cc033-2bc1-470d-b312-8d4a001ea2d9/dsc07366.jpg" alt="" /><span>Behind the chair</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/25d59dc5-47e4-43f8-9466-e8efe97832e1/bridal-henna.jpg" alt="" /><span>Bridal finishing</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/320cda1e-168f-4c4e-a38c-cc7fb011a5a6/shellac.jpg" alt="" /><span>Shellac colour</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/ccdf20ac-b69b-4048-8ffe-8cbacd84b459/blonde-braids.jpg" alt="" /><span>Colour day</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/04d4c697-320c-4e43-aca7-2399ea9204b6/best-hair-salon-in-india.jpg" alt="" /><span>Treatment ritual</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/5af9656f-ef9b-47c4-848c-0d02d66f6ae3/june-26-2023.jpg" alt="" /><span>Editorial moment</span></figure>
+        <figure class="gal-item"><img src="https://cdn.storebox.ai/media/a3d3a12c-d0b4-4e1a-844c-f677bf8c2ca3/d571817d-21c3-4a88-84ac-c748ba484589/premium-hair-salon-in-india.jpg" alt="" /><span>Ready for the day</span></figure>
       </div>
     </div>
   </section>
@@ -766,10 +945,10 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         <div class="reveal">
           <p class="eyebrow">Visit Us</p>
           <h2>Hair Masters Luxury Salon</h2>
-          <p>Here’s how to reach our flagship. We can’t wait to welcome you.</p>
+          <p>Hereâ€™s how to reach our flagship. We canâ€™t wait to welcome you.</p>
           <div class="visit-detail">
-            <p><strong>45, N.W.A., Club Road, Punjabi Bagh</strong><br/>New Delhi – 110026, India</p>
-            <p>Phone: <a href="tel:+911145511560">+011-45511560</a> · <a href="tel:+918796670500">+91 87966 70500</a></p>
+            <p><strong>45, N.W.A., Club Road, Punjabi Bagh</strong><br/>New Delhi â€“ 110026, India</p>
+            <p>Phone: <a href="tel:+911145511560">+011-45511560</a> Â· <a href="tel:+918796670500">+91 87966 70500</a></p>
             <p>WhatsApp: <a href="https://wa.me/918796670500" target="_blank" rel="noreferrer">+91 87966 70500</a></p>
           </div>
           <div class="visit-actions">
@@ -779,8 +958,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
         </div>
         <div class="hours reveal">
           <h3>Opening hours</h3>
-          <p><strong>Monday – Sunday</strong><br/>10:00am – 09:00pm</p>
-          <p>Bridal and event makeup may be available outside regular hours — please WhatsApp us in advance.</p>
+          <p><strong>Monday â€“ Sunday</strong><br/>10:00am â€“ 09:00pm</p>
+          <p>Bridal and event makeup may be available outside regular hours â€” please WhatsApp us in advance.</p>
           <p style="margin-top:1.25rem"><strong>Popular locations</strong></p>
           <div class="loc-chips">
             <span>Punjabi Bagh</span><span>Rajouri Garden</span><span>Galleria Gurugram</span>
@@ -796,7 +975,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   <div class="container footer-grid">
     <div class="footer-brand">
       <strong>Hair Masters</strong>
-      <p>Luxury salon services across India — hair, makeup, nails and regenerative beauty.</p>
+      <p>Luxury salon services across India â€” hair, makeup, nails and regenerative beauty.</p>
     </div>
     <div>
       <h4>Explore</h4>
@@ -814,7 +993,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© <span id="year"></span> Hair Masters Luxury Salon</span>
+    <span>Â© <span id="year"></span> Hair Masters Luxury Salon</span>
     <span>Escape to a World of Beauty</span>
   </div>
 </footer>
@@ -825,9 +1004,9 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
   </a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -838,10 +1017,11 @@ navToggle.addEventListener("click", () => mobileNav.classList.toggle("open"));
 mobileNav.querySelectorAll("[data-close], a").forEach(a => a.addEventListener("click", () => mobileNav.classList.remove("open")));
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
-/* Lenis smooth scroll — driven by GSAP ticker when available */
+/* Lenis â€” desktop only (avoids touch/nested-scroll issues on mobile) */
 let lenis = null;
-if (!reduceMotion && typeof Lenis !== "undefined") {
+if (!reduceMotion && !isMobile && typeof Lenis !== "undefined") {
   lenis = new Lenis({ duration: 1.15, smoothWheel: true });
   document.documentElement.classList.add("lenis","lenis-smooth");
 }
@@ -870,7 +1050,7 @@ if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
     delay: 0.15,
   });
 
-  gsap.from(".hero-rating, .hero-meta .reveal", {
+  gsap.from(".hero-rating, .hero-meta", {
     autoAlpha: 0,
     y: 24,
     duration: 0.9,
@@ -879,67 +1059,162 @@ if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
     delay: 0.55,
   });
 
-  /* Hero scrub parallax */
+  /*
+   * Hero parallax: pin+zoom on desktop only.
+   * Mobile: short light scrub â€” no pin.
+   */
   if (!reduceMotion) {
-    gsap.to(".hero-media img", {
-      scale: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1,
-      },
-    });
-    gsap.to(".hero-title", {
-      y: 80,
-      opacity: 0.35,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1,
-      },
-    });
+    if (!isMobile) {
+      const heroTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "+=120%",
+          scrub: 0.65,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+      heroTl
+        .to(".hero-zoom", { scale: 1.5, ease: "none" }, 0)
+        .to(".hero-media", { scale: 1.15, yPercent: 18, ease: "none" }, 0)
+        .to(".hero-scrim", { opacity: 0.55, ease: "none" }, 0)
+        .to(".hero-chrome", { autoAlpha: 0, y: 36, ease: "none" }, 0);
+    } else {
+      gsap.to(".hero-media", {
+        yPercent: 10,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.35 },
+      });
+      gsap.to(".hero-zoom", {
+        y: 28,
+        opacity: 0.5,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.35 },
+      });
+    }
   }
 
-  /* Section reveals */
-  gsap.utils.toArray(".reveal").forEach((el) => {
-    gsap.from(el, {
-      autoAlpha: 0,
-      y: 42,
-      duration: 0.9,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: el,
-        start: "top 88%",
-        toggleActions: "play none none none",
-        once: true,
-      },
-    });
-  });
+  /* Section reveals â€” slide in on scroll */
+  if (!reduceMotion) {
+    gsap.utils.toArray(".reveal").forEach((el) => {
+      /* Service rows get their own directional slide below */
+      if (el.classList.contains("svc-item")) return;
 
-  /* Service polaroid straighten on enter */
-  gsap.utils.toArray(".svc-photo").forEach((photo, i) => {
-    const endRot = i % 2 === 0 ? -1.5 : 1.5;
-    gsap.fromTo(photo,
-      { rotate: i % 2 === 0 ? -8 : 8, y: 30, autoAlpha: 0 },
-      {
-        rotate: endRot,
-        y: 0,
-        autoAlpha: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: photo.closest(".svc-item"),
-          start: "top 85%",
-          toggleActions: "play none none none",
-          once: true,
-        },
+      let x = 0;
+      if (el.classList.contains("about-visual")) x = isMobile ? 0 : -64;
+      else if (el.classList.contains("about-copy")) x = isMobile ? 0 : 64;
+
+      gsap.fromTo(
+        el,
+        { autoAlpha: 0, y: isMobile ? 32 : 64, x },
+        {
+          autoAlpha: 1,
+          y: 0,
+          x: 0,
+          duration: isMobile ? 0.55 : 0.95,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: el,
+            start: isMobile ? "top 92%" : "top 86%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+    });
+
+    /* Services â€” slide in from alternating sides + polaroid settle */
+    gsap.utils.toArray(".svc-item").forEach((item, i) => {
+      const fromLeft = i % 2 === 0;
+      const slideX = isMobile ? 0 : fromLeft ? -72 : 72;
+      const photo = item.querySelector(".svc-photo");
+      const num = item.querySelector(".svc-num");
+      const body = item.querySelector(".svc-body");
+
+      gsap.fromTo(
+        item,
+        { autoAlpha: 0, x: slideX, y: isMobile ? 28 : 36 },
+        {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          duration: isMobile ? 0.55 : 0.9,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: item,
+            start: isMobile ? "top 92%" : "top 88%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      if (num) {
+        gsap.fromTo(
+          num,
+          { autoAlpha: 0, y: 20 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            delay: 0.05,
+            ease: "power3.out",
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: item,
+              start: isMobile ? "top 92%" : "top 88%",
+              once: true,
+            },
+          }
+        );
       }
-    );
-  });
+
+      if (body) {
+        gsap.fromTo(
+          body,
+          { autoAlpha: 0, x: isMobile ? 0 : fromLeft ? -24 : 24 },
+          {
+            autoAlpha: 1,
+            x: 0,
+            duration: 0.75,
+            delay: 0.12,
+            ease: "power3.out",
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: item,
+              start: isMobile ? "top 92%" : "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+
+      if (photo) {
+        gsap.fromTo(
+          photo,
+          { rotate: fromLeft ? -14 : 14, scale: 0.92 },
+          {
+            rotate: 0,
+            scale: 1,
+            duration: 0.95,
+            ease: "power3.out",
+            clearProps: "transform",
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: item,
+              start: isMobile ? "top 92%" : "top 88%",
+              once: true,
+            },
+          }
+        );
+      }
+    });
+  } else {
+    gsap.set(".reveal", { autoAlpha: 1, clearProps: "transform" });
+  }
 
   /* Sticky service category highlight */
   const navLinks = gsap.utils.toArray("#svcNav a");
@@ -959,60 +1234,103 @@ if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
     });
   });
 
-  /* Looks stagger */
-  gsap.from(".look-card", {
-    autoAlpha: 0,
-    y: 48,
-    duration: 0.85,
-    stagger: 0.08,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".looks-grid",
-      start: "top 80%",
-      once: true,
-    },
-  });
+  /* Looks â€” stack: sticky outer, animate INNER only (keeps sticky intact) */
+  if (!reduceMotion && !isMobile) {
+    document.querySelectorAll(".looks-col").forEach((col) => {
+      const cards = gsap.utils.toArray(col.querySelectorAll(".look-card"));
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+        const inner = card.querySelector(".look-card-inner");
+        if (!next || !inner) return;
+        gsap.to(inner, {
+          scale: 0.94,
+          filter: "brightness(0.78)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: next,
+            start: "top bottom",
+            end: "top " + (72 + i * 3) + "%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+    });
+  } else if (isMobile && !reduceMotion) {
+    gsap.fromTo(
+      ".look-card",
+      { autoAlpha: 0, y: 36 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.55,
+        stagger: 0.07,
+        ease: "power3.out",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: "#looksStack",
+          start: "top 90%",
+          once: true,
+        },
+      }
+    );
+  }
 
-  /* Approach cards */
-  gsap.from(".approach-card", {
-    autoAlpha: 0,
-    y: 36,
-    duration: 0.8,
-    stagger: 0.1,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".approach-grid",
-      start: "top 82%",
-      once: true,
-    },
-  });
+  /* Approach cards â€” staggered slide-up */
+  if (!reduceMotion) {
+    gsap.fromTo(
+      ".approach-card",
+      { autoAlpha: 0, y: isMobile ? 36 : 56 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: isMobile ? 0.55 : 0.85,
+        stagger: 0.1,
+        ease: "power3.out",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: ".approach-grid",
+          start: "top 84%",
+          once: true,
+        },
+      }
+    );
 
-  /* Gallery horizontal drift scrub */
-  if (!reduceMotion && window.matchMedia("(min-width: 768px)").matches) {
-    const strip = document.getElementById("galleryStrip");
-    gsap.to(strip, {
-      x: () => Math.min(0, window.innerWidth - strip.scrollWidth - 48),
+    /* Gallery â€” staggered slide-up */
+    gsap.fromTo(
+      ".gal-item",
+      { autoAlpha: 0, y: isMobile ? 28 : 48 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.07,
+        ease: "power3.out",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: "#galleryStrip",
+          start: "top 88%",
+          once: true,
+        },
+      }
+    );
+  } else {
+    gsap.set(".approach-card, .gal-item", { autoAlpha: 1 });
+  }
+
+  /* Franchise parallax â€” desktop only */
+  if (!isMobile) {
+    gsap.to(".franchise-bg img", {
+      yPercent: 18,
       ease: "none",
       scrollTrigger: {
-        trigger: ".gallery",
-        start: "top 60%",
-        end: "+=80%",
-        scrub: 1,
+        trigger: ".franchise",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
       },
     });
   }
-
-  /* Franchise parallax */
-  gsap.to(".franchise-bg img", {
-    yPercent: 18,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".franchise",
-      start: "top bottom",
-      end: "bottom top",
-      scrub: true,
-    },
-  });
 
   ScrollTrigger.refresh();
   window.addEventListener("load", () => ScrollTrigger.refresh());
